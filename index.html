@@ -217,8 +217,8 @@
             document.getElementById('third-popup').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
 
-            // 🐢 Load Turtle Particles AFTER popups close
-            setTimeout(initParticles, 500); 
+            // Load Turtle Particles AFTER popups close
+            setTimeout(initParticles, 1000); 
         }
 
         function initParticles() {
@@ -230,7 +230,7 @@
                     shape: {
                         type: "image", 
                         image: {
-                            src: "pic/tortol.png",
+                            src: "pic/tortol.png", // Check this file exists
                             width: 30,
                             height: 30
                         }
@@ -246,7 +246,7 @@
                 }
             });
 
-            console.log("Particles loaded! Check if the turtle image appears.");
+            console.log("Particles loaded! 🐢");
         }
     </script>
 
