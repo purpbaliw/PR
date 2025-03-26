@@ -137,13 +137,6 @@
         }
     </style>
 
-    <!-- Hide content instantly using JavaScript before anything loads -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.body.style.display = "none"; // Hide everything immediately
-        });
-    </script>
-
 </head>
 <body>
 
@@ -203,7 +196,7 @@
     <script>
         // Hide page content and only show popup
         document.addEventListener("DOMContentLoaded", function() {
-            document.body.style.display = "block"; // Show page only after script runs
+            document.body.style.display = "block";
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('popup').style.display = 'block';
             document.getElementById('main-content').style.display = 'none';
@@ -222,31 +215,39 @@
         function closePopup() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('third-popup').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block'; // Show content now
+            document.getElementById('main-content').style.display = 'block';
+
+            // 🐢 Load Turtle Particles AFTER popups close
+            setTimeout(initParticles, 500); 
         }
 
-        // Floating Turtle Particles
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 50, density: { enable: true, value_area: 800 } },
-                shape: {
-                    type: "image", 
-                    image: {
-                        src: "pic/tortol.png",  // Ensure you have this image in the correct folder
-                        width: 30,
-                        height: 30
+        function initParticles() {
+            console.log("Loading Turtle Particles...");
+
+            particlesJS("particles-js", {
+                particles: {
+                    number: { value: 50, density: { enable: true, value_area: 800 } },
+                    shape: {
+                        type: "image", 
+                        image: {
+                            src: "pic/tortol.png",
+                            width: 30,
+                            height: 30
+                        }
+                    },
+                    opacity: { value: 0.8 },
+                    size: { value: 20, random: true },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        out_mode: "bounce"
                     }
-                },
-                opacity: { value: 0.8 },
-                size: { value: 20, random: true },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    out_mode: "bounce"
                 }
-            }
-        });
+            });
+
+            console.log("Particles loaded! Check if the turtle image appears.");
+        }
     </script>
 
 </body>
