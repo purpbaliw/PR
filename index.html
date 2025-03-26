@@ -8,13 +8,21 @@
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/particles.min.js"></script>
+
     <style>
+        /* Hide entire body immediately to prevent spoilers */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #e0f2e9;
             color: #2d6a4f;
             padding: 20px;
+            margin: 0;
+        }
+
+        /* Hide main content instantly */
+        #main-content {
+            display: none;
         }
 
         /* Header Container */
@@ -53,6 +61,7 @@
             object-fit: cover;
         }
 
+        /* Popups */
         .popup {
             position: fixed;
             top: 50%;
@@ -75,10 +84,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(-45deg, #2d6a4f, #74c69d, #b7e4c7, #1b4332);
+            background: linear-gradient(135deg, #1b4332, #2d6a4f, #74c69d, #b7e4c7);
             background-size: 300% 300%;
             animation: moveBackground 6s infinite linear;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             z-index: 999;
         }
 
@@ -127,49 +136,22 @@
             }
         }
     </style>
+
+    <!-- Hide content instantly using JavaScript before anything loads -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.style.display = "none"; // Hide everything immediately
+        });
+    </script>
+
 </head>
 <body>
 
-    <!-- Particle Background -->
-    <div id="particles-js"></div>
-
-    <!-- Header Container -->
-    <div class="header-container">
-        <h1>Hi babycakes!!!</h1>
-    </div>
-
-    <!-- Paragraph Container -->
-    <div class="text-container">
-        <p>I hope this brings a smile to your face :></p>
-    </div>
-
-    <!-- Responsive Video -->
-    <div class="video-container">
-        <video autoplay loop muted playsinline>
-            <source src="vid/photobooth1.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <!-- Additional Paragraph Container -->
-    <div class="text-container">
-        <br>
-        <p>Do you see how cute we are in the photobooth? HAHAHAHA my fav is on the right </p>
-        <br>
-        <p>I promise to always be by your side. Through the good and bad days pati na rin kapag nagkakatampuhan (lambing mo lang ang gusto ko oki?). 
-            Remember that you are not facing your problems alone because your baby is here.
-            Let's overcome every obstacle that comes our way, and we will fix every argument we encounter.
-            I am proud of you, baby. Do you know that? Because now, you are expressing what's bothering you, like how I may have hurt you.
-            I'm truly sorry for the damages I have caused. You are the person I want to grow with, to mature with, and to build a future together.
-        </p> 
-        <br>
-        <p>Your baby, Purple</p>
-    </div>
-
-    <!-- Moving Gradient Overlay -->
-    <div id="overlay" class="overlay" style="display: none;"></div>
+    <!-- Blurry Background Overlay -->
+    <div id="overlay" class="overlay"></div>
 
     <!-- Popups -->
-    <div id="popup" class="popup" style="display: none;">
+    <div id="popup" class="popup">
         <p>Was meant to be a surprise but I already gave you an idea about this HAHAHA</p>
         <button class="close-btn" onclick="openSecondPopup()">Hmmm</button>
     </div>
@@ -184,35 +166,48 @@
         <button class="close-btn" onclick="closePopup()">YESSSSS</button>
     </div>
 
-    <!-- Floating Turtle Particles -->
-    <script>
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 50, density: { enable: true, value_area: 800 } },
-                shape: {
-                    type: "image", 
-                    image: {
-                        src: "pic/tortol.png",  // Ensure you have this image in the correct folder
-                        width: 20,
-                        height: 20
-                    }
-                },
-                opacity: { value: 0.8 },
-                size: { value: 20, random: true },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    out_mode: "bounce"
-                }
-            }
-        });
+    <!-- Main Content (Hidden Initially) -->
+    <div id="main-content">
+        <div class="header-container">
+            <h1>Hi babycakes!!!</h1>
+        </div>
 
-        // Show first popup on load
-        window.onload = function () {
+        <div class="text-container">
+            <p>I hope this brings a smile to your face :></p>
+        </div>
+
+        <div class="video-container">
+            <video autoplay loop muted playsinline>
+                <source src="vid/photobooth1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="text-container">
+            <br>
+            <p>Do you see how cute we are in the photobooth? HAHAHAHA my fav is on the right </p>
+            <br>
+            <p>I promise to always be by your side. Through the good and bad days pati na rin kapag nagkakatampuhan (lambing mo lang ang gusto ko oki?). 
+            Remember that you are not facing your problems alone because your baby is here.
+            Let's overcome every obstacle that comes our way, and we will fix every argument we encounter.
+            I am proud of you, baby. Do you know that? Because now, you are expressing what's bothering you, like how I may have hurt you.
+            I'm truly sorry for the damages I have caused. You are the person I want to grow with, to mature with, and to build a future together.
+        </p>
+            <br>
+            <p>Your baby, Purple</p>
+        </div>
+
+        <!-- Floating Turtle -->
+        <div id="particles-js"></div>
+    </div>
+
+    <script>
+        // Hide page content and only show popup
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.style.display = "block"; // Show page only after script runs
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('popup').style.display = 'block';
-        };
+            document.getElementById('main-content').style.display = 'none';
+        });
 
         function openSecondPopup() {
             document.getElementById('popup').style.display = 'none';
@@ -227,7 +222,31 @@
         function closePopup() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('third-popup').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block'; // Show content now
         }
+
+        // Floating Turtle Particles
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 50, density: { enable: true, value_area: 800 } },
+                shape: {
+                    type: "image", 
+                    image: {
+                        src: "pic/tortol.png",  // Ensure you have this image in the correct folder
+                        width: 30,
+                        height: 30
+                    }
+                },
+                opacity: { value: 0.8 },
+                size: { value: 20, random: true },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    out_mode: "bounce"
+                }
+            }
+        });
     </script>
 
 </body>
